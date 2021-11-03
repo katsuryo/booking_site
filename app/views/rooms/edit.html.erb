@@ -1,0 +1,57 @@
+
+<div class="container-fiuld room-posts">
+    <h4 class="pb-4">登録済みルーム一覧</h4>
+    <table>
+        <thead>
+            <tr align="center">
+                <th>ルーム画像</th>
+                <th>ルーム名</th>
+                <th>ルーム紹介</th>
+                <th>料金</th>
+                <th>住所</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>    <%# 編集前のroom情報 %>
+                <td>
+                    <%= image_tag @room.room_image, class:"room-posts-image" %>
+                </td>
+                <td class="posts-name">
+                    <%= @room.room_name %>
+                </td>
+                <td class="posts-content">
+                    <%= @room.introduction %>
+                </td>
+                <td class="posts-content">
+                    <%= @room.price %>
+                </td>
+                <td class="posts-content">
+                    <%= @room.adress %>
+                </td>
+            </tr>
+            <%= form_with model:@room , local: true do |f| %>
+                <tr>
+                    <td>
+                        <%= f.file_field :room_image, class:"room-posts-image" %>
+                    </td>
+                    <td class="posts-name">
+                        <%= f.text_field :room_name %>
+                    </td>
+                    <td class="posts-content">
+                        <%= f.text_area :introduction %>
+                    </td>
+                    <td class="posts-content">
+                        <%= f.number_field :price %>
+                    </td>
+                    <td class="posts-content">
+                        <%= f.text_field :adress %>
+                    </td>
+                    <td class="posts-content">
+                        <%= f.submit "編集を完了する" , class:"btn btn-primary"%>
+                    </td>                    
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <%= link_to "登録ルーム一覧へ戻る", rooms_path%>
+</div>       

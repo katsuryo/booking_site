@@ -1,0 +1,52 @@
+<div class="container-fiuld reservations">
+  <h4 class="pb-4">予約済みルーム一覧</h4>
+  <table>
+    <thead>
+      <tr align="center">
+        <th>ルーム画像</th>
+        <th>ルーム名</th>
+        <th>ルーム紹介</th>
+        <th>合計料金</th>
+        <th>開始日</th>
+        <th>終了日</th>
+        <th>予約確定日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <% if reservation.user_id == current_user.id %>
+          <tr>
+            <% @rooms.each do |room| %>
+              <% if reservation.room_id == room.id then %>
+                <td>
+                  <%= link_to image_tag(room.room_image, class: "room-posts-image"), room %>
+                </td>
+                <td>
+                  <%= link_to room.room_name, room %>
+                </td>
+                <td>
+                  <%= room.introduction %>
+                </td>
+              <% end %>
+            <% end %>  
+            <td>
+              <%= reservation.total_price %>
+            </td>
+            <td>
+              <%= reservation.start_date %>
+            </td>
+            <td>
+              <%= reservation.end_date %>
+            </td>
+            <td>
+              <%= reservation.created_at %>
+            </td>
+            <td>
+              <%= link_to "予約履歴を削除", reservation, method: :delete, class:"btn btn-danger",data: { confirm: "本当に削除しますか？" } %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

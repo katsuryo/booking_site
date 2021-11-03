@@ -1,0 +1,56 @@
+
+<article>
+    <div class="content ">
+        <div class="user-view-box">
+            <div class="update-content">
+                <b>ルーム情報登録</b>
+            </div>
+        <%= render "shared/error", obj: @room %>
+        <%= form_for @room do |f|%>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3"><%= f.label :ルーム名 %><p class="badge badge-danger">必須</p></label>
+                    <div class="col-md-9">    
+                        <%= f.text_field :room_name %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3"><%= f.label :ルーム紹介 %><p class="badge badge-danger">必須</p></label>
+                    <div class="col-md-9">    
+                        <%= f.text_area :introduction %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3"><%= f.label :料金 %><p class="badge badge-danger">必須</p></label>
+                    <div class="col-md-9">    
+                        <%= f.number_field :price %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3"><%= f.label :住所 %><p class="badge badge-danger">必須</p></label>
+                    <div class="col-md-9">    
+                        <%= f.text_field :adress %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3"><%= f.label :ルーム画像 %><p class="badge badge-danger">必須</p></label>
+                    <div class="col-md-9">    
+                        <%= f.file_field :room_image %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">                
+                <%= f.submit "登録",class: 'btn btn-primary' %>
+            </div>
+        <%end %>
+        </div>
+    </div>
+</article>
