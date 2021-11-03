@@ -1,0 +1,47 @@
+
+<div class="container-fiuld room-posts">
+    <h4 class="pb-4">登録済みルーム一覧</h4>
+    <table>
+        <thead>
+            <tr align="center">
+                <th>ルーム画像</th>
+                <th>ルーム名</th>
+                <th>ルーム紹介</th>
+                <th>料金</th>
+                <th>住所</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% room_flg = 0 %>      <%# ログインしているユーザが登録したroomがあるかを判定するフラグ%>
+            <% @rooms.each do |room| %>
+                <% if room.user_id == current_user.id%>
+                    <tr>
+                        <td>
+                            <%= image_tag room.room_image, class:"room-posts-image" %>
+                        </td>
+                        <td class="posts-name">
+                            <%= link_to room.room_name, room %>
+                        </td>
+                        <td class="posts-content">
+                            <%= room.introduction %>
+                        </td>
+                        <td class="posts-content">
+                            <%= room.price %>
+                        </td>
+                        <td class="posts-content">
+                            <%= room.adress %>
+                        </td>
+                        <td class="posts-content">
+                            <%= link_to "編集", edit_room_path(room.id) , class:"btn btn-primary"%>
+                            <%= link_to "削除", room, method: :delete, class:"btn btn-danger",data: { confirm: "本当に削除しますか？" } %>
+                        </td>
+                        <% room_flg = 1  %> <%# ログインしているユーザが登録したroomが１個でもあればフラグを立てる%>
+                    </tr>
+                <% end %>
+            <% end %>
+            <% if room_flg == 0 %>  <%# ログインしているユーザが登録したroomが１個でもあるか判定 %>
+                <%= current_user.username %>が登録したroomはありません
+            <% end %>
+        </tbody>
+    </table>
+</div>

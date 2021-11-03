@@ -1,0 +1,26 @@
+<%count = 0 %>
+<% @search_rooms.each do |room| %>
+  <% count = count + 1 %>
+<% end %>
+<h4 class="pb-4 search-result">検索結果：<%= count %>件</h4>
+
+<div class="container-fiuld room">
+  <div class="row">
+    <% @search_rooms.each do |room| %>
+      <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="room-frame-inner">
+          <%= link_to room do %>
+            <div class="room-image-out">
+              <%= image_tag room.room_image, class:"room-image", alt:"部屋画像" %>
+            </div>
+            <div class="room-profile">
+              <p class="room-profile-name"><%= room.room_name %></p>
+              <p class="room-profile-city"><%= room.adress %></p>
+              <p class="room-profile-price price-icon">¥<%= room.price %></p>
+            </div>
+          <% end %>        
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

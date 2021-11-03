@@ -1,0 +1,44 @@
+
+
+<article>
+    <%#  サイドメニューstart *******************************************************************************%>
+    <div class="side">
+        <div class="side-menu">
+            <%= link_to "アカウント", controller: 'users', id: current_user.id, action: 'show' %>
+        </div>
+        <div class="side-menu">
+            <%= link_to "プロフィール", controller: 'users', id: current_user.id, action: 'profile' %>
+        </div>
+    </div>
+    <%#  サイドメニューend *******************************************************************************%>
+    <div class="content">
+        <div class="user-view-box">
+            <div class="update-content">
+                アカウント
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3">
+                        <b>メールアドレス</b>
+                    </label>
+                    <div class="col-md-9">
+                        <%= current_user.email %>
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">
+                <div class="row">
+                    <label class="col-md-3">
+                        <b>パスワード</b>
+                    </label>
+                    <div class="col-md-9">
+                        ********
+                    </div>
+                </div>
+            </div>
+            <div class="update-content">                
+                <%= link_to "編集", edit_user_registration_path ,class: 'btn btn-primary' %>                
+            </div>        
+        </div>
+    </div>
+</article>

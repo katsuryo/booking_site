@@ -1,0 +1,52 @@
+<div class="container room-show">
+  <div class="row">
+    <div class="col-md-8">
+      <%= image_tag @room.room_image, class:"room-show-image"%>
+      <div class="room-show-detile">
+        <div class="room-show-detile-icon">
+          <% if current_user.profile_image.attached? %> <%#ユーザのプロフィール画像が登録されているか❔ %>
+            <%= image_tag current_user.profile_image, class:"profile-image margin-right" %>
+          <% else %>
+            <%= image_tag "default_user.jpg", class:"profile-image margin-right" %>
+          <% end %>
+        </div>
+        <div class="room-show-profile">
+          <p class="room-show-profile-name"><%=@room.room_name %></p>
+          <p class="room-show-profile-address"><%=@room.adress %></p>
+        </div>
+      </div>
+      <p class="room-show-detile-content"><%=@room.introduction %></p>
+    </div>
+    <div class="col-md-4">
+      <div class="room-show-nav">
+        <%= render "shared/error", obj: @reservation %>
+        <h5 class="price-icon">¥<%=@room.price %>/ 日</h5>
+        <div class="room-show-date-select">
+          <%= form_for @reservation, method: :get,  
+          url: new_reservation_path(start_date: :start_date, end_date: :end_date,　people: :people,　user_id: :user_id,　room_id: :room_id ) do |f| %> 
+          <%#reservationコントローラのnewアクションへ遷移 %>
+            <table>
+              <tr>
+                <th><%= f.label :name ,"チェックイン" %></th>
+                <td><%= f.date_field :start_date, class:"form-control mb-4" %></td>
+              </tr>
+              <tr>
+                <th><%= f.label :name ,"チェックアウト" %></th>
+                <td><%= f.date_field :end_date ,class:"form-control mb-4"%></td>
+              </tr>
+              <tr>
+                <th><%= f.label :name ,"人数" %></th>
+                <td><%= f.number_field :people , class:"form-control mb-4"%></td>
+              </tr>
+              <%= f.hidden_field :user_id, :value => current_user.id %>
+              <%= f.hidden_field :room_id, :value => @room.id %>
+            </table>
+            <div>
+              <%= f.submit "予約する",class: 'btn btn-primary form-control'%></li>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

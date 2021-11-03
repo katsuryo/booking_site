@@ -1,0 +1,54 @@
+<div class="container reservations-new">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="reservations-new-nav">
+                <h4 class="reservations-new-check-content">予約内容確認</h4>
+                <h5 class="price-icon">￥<%=@room.price %> / 日</h5>
+                <div class="reservations-new-date-select">
+                    <% use_of_days = (@reservation.end_date - @reservation.start_date).to_i%> <%# 使用日数＝チェックアウト日ーチェックイン日%>
+                    <table>
+                        <tr>
+                            <div>チェックイン</div>
+                            <div class="form-control mb-4"><%= @reservation.start_date %></div>
+                        </tr>
+                        <tr>
+                            <div>チェックアウト</div>
+                            <div class="form-control mb-4"><%= @reservation.end_date %></div>
+                        </tr>
+                        <tr>
+                            <div class="reservations-new-check-content">
+                                使用日数（チェックイン日 - チェックアウト日）：<b><%= use_of_days %>日</b>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="reservations-new-check-content">
+                                <% if @reservation.people == nil %>
+                                    人数：❔人
+                                <% else %>
+                                    人数：<%= @reservation.people %>人
+                                <%end %>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div>合計金額</div>
+                            <div class="form-control mb-4">¥<%= @reservation.total_price = use_of_days * @room.price %></div>
+                            <div>
+                                <%= link_to "ルーム詳細に戻る", @room ,class: 'btn btn-secondary form-control' %>
+                            </div>
+                        </tr>
+                    </table>                
+                </div>
+                <%= form_for @reservation do |f| %>
+                    <%= f.hidden_field :user_id %>
+                    <%= f.hidden_field :room_id %>
+                    <%= f.hidden_field :start_date %>
+                    <%= f.hidden_field :end_date %>
+                    <%= f.hidden_field :people %>
+                    <%= f.hidden_field :total_price, :value => @reservation.total_price %>
+                    上記内容でよろしければ「予約を確定」を押してください
+                    <%= f.submit '予約を確定する', class:"btn btn-primary form-control" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
